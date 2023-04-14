@@ -14,18 +14,28 @@ class Player {
     this.xVel = 0;
 
     this.maxVel = 3;
-    this.acc = 0.1;
+    this.acc = 0.2;
 
     this.boundHeight = this.maxVel * 2;
     this.bounceVelocity = this.acc * (0.1 / 0.07);
     this.deltaHeight = this.bounceVelocity;
 
     this.attacking = false;
+    this.inConversation = false;
   }
 
   draw() {
+    push();
+    if (w.getIsOpenSource()) {
+      strokeWeight(2);
+      stroke(255);
+    } else {
+      strokeWeight(1);
+      stroke(0);
+    }
     fill(this.color);
     circle(this.x, this.y + this.height, 50);
+    pop();
 
     this.displayName();
     this.drawAttack();
@@ -39,9 +49,36 @@ class Player {
 
   update() {
     this.handleKeys();
+    this.checkRoomBounds();
     this.updatePosition();
     this.handleAttack();
     this.bounce();
+  }
+
+  checkRoomBounds() {
+    if (this.x < 0) {
+      const moved = w.moveRoom('LEFT');
+      if (moved) {
+        this.x = wid;
+      }
+    } else if (this.x > wid) {
+      const moved = w.moveRoom('RIGHT');
+      if (moved) {
+        this.x = 0;
+      }
+    }
+
+    if (this.y < 0) {
+      const moved = w.moveRoom('UP');
+      if (moved) {
+        this.y = hig;
+      }
+    } else if (this.y > hig) {
+      const moved = w.moveRoom('DOWN');
+      if (moved) {
+        this.y = 0;
+      }
+    }
   }
 
   displayName() {
@@ -54,8 +91,8 @@ class Player {
   }
 
   updatePosition() {
-    this.x += this.xVel;
-    this.y += this.yVel;
+    this.x = Math.max(-1, Math.min(this.x + this.xVel, wid + 1));
+    this.y = Math.max(-1, Math.min(this.y + this.yVel, hig + 1));
   }
 
   handleAttack() {
@@ -106,10 +143,14 @@ class Player {
   }
 
   takeAction() {
-    let interactions = w.getInteractions();
+    if (!this.inConversation) {
+      let interactions = w.getInteractions();
 
-    if (interactions.length > 0) {
-      interactions[0].interact();
+      if (interactions.length > 0) {
+        interactions[0].interact();
+      }
+    } else {
+      cw.advance();
     }
   }
 

@@ -8,6 +8,8 @@ class ChatWindow {
     this.height = 0;
 
     this.text = 'Hello, World!';
+
+    this.currentEntity = 0;
   }
 
   bounce() {
@@ -70,6 +72,10 @@ class ChatWindow {
 
   update() {
     this.bounce();
+  }
+
+  advance() {
+    // const reponse = this.entities[this.currentEntity].nextLine();
   }
 
   clear() {

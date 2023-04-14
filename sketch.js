@@ -1,7 +1,7 @@
 wid = 500;
 hig = 500;
 
-let w = new World();
+let w = new World(4, 4);
 
 function setup() {
   createCanvas(wid, hig);
@@ -10,14 +10,21 @@ function setup() {
   // w.addEnemy(e);
 
   npm = new NPC('NPC 1', 'blue', 50, 100, 100, []);
-  w.addNPC(npm);
+  r = new Room([], []);
+
+  w.setPlayerRoom(1, 1);
+  w.setRoom(r, 1, 1);
 
   fire_sword = new Sword('Fire Sword', '#FF0000', 2, 60, 0.3);
-  p = new Player('Bryson', '#FFFF00', width / 2, height / 2, [fire_sword]);
+  p = new Player('', '#FFFF00', width / 2, height / 2, [fire_sword]);
 }
 
 function draw() {
-  background(255);
+  if (w.getIsOpenSource()) {
+    background(0);
+  } else {
+    background(255);
+  }
   drawBorder();
 
   w.update();
@@ -44,6 +51,8 @@ function keyPressed() {
     keyState.RIGHT = maxVal + 1;
   } else if (keyCode === 32) {
     keyState.SPACE = maxVal + 1;
+  } else if (keyCode === 70) {
+    w.flip();
   }
 }
 

@@ -2,11 +2,11 @@ Install [Nodejs](https://nodejs.org/en/download)
 
 Install [http-server](https://www.npmjs.com/package/http-server)
 
-``git clone https://github.com/Bryt12/let-w--new-World``
+`git clone https://github.com/Bryt12/let-w--new-World`
 
-``cd let-w--new-World``
+`cd let-w--new-World`
 
-``http-server``
+`http-server`
 
 Go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 
