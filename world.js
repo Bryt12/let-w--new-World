@@ -34,7 +34,15 @@ class World {
     this.openSource = !this.openSource;
   }
 
+  getRoom(x, y) {
+    return this.rooms[x][y];
+  }
+
   setRoom(room, x, y) {
+    console.log('---------');
+    console.log(x);
+    console.log(y);
+    console.log(room);
     this.rooms[x][y] = room;
   }
 
@@ -96,17 +104,25 @@ class World {
     for (let npc of room.getNPCs()) {
       npc.update();
     }
+
+    for (let scenery of room.getScenery()) {
+      scenery.update();
+    }
   }
 
   draw() {
     const room = this.rooms[this.roomIndexX][this.roomIndexY];
 
-    p.draw();
-    cw.draw();
+    for (let scenery of room.getScenery()) {
+      scenery.draw();
+    }
 
     for (let enemy of room.getEnemies()) {
       enemy.draw();
     }
+
+    p.draw();
+    cw.draw();
 
     for (let npc of room.getNPCs()) {
       npc.draw();

@@ -148,10 +148,16 @@ class Player {
 
       if (interactions.length > 0) {
         interactions[0].interact();
+      } else {
+        this.useItem();
       }
     } else {
       cw.advance();
     }
+  }
+
+  useItem() {
+    this.attacking = true;
   }
 
   move(direction) {

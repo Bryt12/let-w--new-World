@@ -1,0 +1,24 @@
+{
+  "name": "let_w__new_world",
+  "version": "1.0.0",
+  "description": "Install [Nodejs](https://nodejs.org/en/download)",
+  "main": "chat.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bryt12/let-w--new-World.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bryt12/let-w--new-World/issues"
+  },
+  "homepage": "https://github.com/Bryt12/let-w--new-World#readme",
+  "dependencies": {
+    "@types/p5": "^1.6.0",
+    "p5": "^1.6.0",
+    "typescript": "^5.0.4"
+  }
+}
