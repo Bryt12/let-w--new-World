@@ -1,5 +1,24 @@
-class Sword {
-  constructor(name, color, damage, al, speed) {
+import P5 from 'p5';
+
+export class Sword {
+  private name: string;
+  private color: string;
+  private damage: number;
+
+  private attackLength: number;
+  private attackTimer: number;
+  private coolDown: number;
+
+  private speed: number;
+  private angle: number;
+
+  constructor(
+    name: string,
+    color: string,
+    damage: number,
+    al: number,
+    speed: number
+  ) {
     this.name = name;
     this.damage = damage;
 
@@ -39,12 +58,12 @@ class Sword {
     };
   }
 
-  draw(x, y, r) {
-    push();
-    fill(this.color);
-    translate(x, y);
-    rotate(this.angle);
-    rect(0, 0, r * 2, r * 2);
-    pop();
+  draw(p5: P5, x: number, y: number, r: number) {
+    p5.push();
+    p5.fill(this.color);
+    p5.translate(x, y);
+    p5.rotate(this.angle);
+    p5.rect(0, 0, r * 2, r * 2);
+    p5.pop();
   }
 }

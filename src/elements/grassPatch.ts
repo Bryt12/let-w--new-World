@@ -1,14 +1,31 @@
-class GrassPatch {
-  constructor(x, y, wid, hei) {
+import { Scenery } from '../scenery.js';
+import { w } from '../main.js';
+
+import { dist, random } from '../util.js';
+
+import P5 from 'p5';
+
+export class GrassPatch extends Scenery {
+  private x: number;
+  private y: number;
+
+  private wid: number;
+  private h: number;
+
+  private points: number[][];
+
+  constructor(x: number, y: number, wid: number, hei: number) {
+    super();
     this.x = x;
     this.y = y;
     this.wid = wid;
     this.h = hei;
+    this.points = [];
 
-    this.generatePoints(x, y, wid, hei);
+    this.generatePoints();
   }
 
-  generatePoints(x, y, wid, hei) {
+  generatePoints() {
     let d1 = 0.2;
     let d2 = 0.2;
     let d3 = 0.2;
@@ -35,18 +52,18 @@ class GrassPatch {
     ];
   }
 
-  draw() {
-    if (w.getIsOpenSource()) {
-      strokeWeight(2);
-      stroke(255);
-    } else {
-      stroke(40);
-      strokeWeight(2);
-    }
-    push();
-    noFill();
+  draw(p5: P5) {
+    // if (w.getIsOpenSource()) {
+    //   p5.strokeWeight(2);
+    //   p5.stroke(255);
+    // } else {
+    //   p5.stroke(40);
+    //   p5.strokeWeight(2);
+    // }
+    p5.push();
+    p5.noFill();
 
-    strokeWeight(2); // Thicker lines for the grass
+    p5.strokeWeight(2); // Thicker lines for the grass
 
     let bladeHeight = 0.7;
 
@@ -59,9 +76,9 @@ class GrassPatch {
     let control2X = startX + this.wid * this.points[0][2];
     let control2Y = endY + this.h * this.points[0][3];
 
-    stroke(0, 200, 0); // Green color for the grass
+    p5.stroke(0, 200, 0); // Green color for the grass
     // Draw the Bézier curve
-    bezier(
+    p5.bezier(
       startX,
       startY,
       control1X,
@@ -81,8 +98,8 @@ class GrassPatch {
     control2X = startX - this.wid * this.points[2][2];
     control2Y = endY + this.h * this.points[2][3];
 
-    stroke(0, 180, 0); // Green color for the grass
-    bezier(
+    p5.stroke(0, 180, 0); // Green color for the grass
+    p5.bezier(
       startX,
       startY,
       control1X,
@@ -102,8 +119,8 @@ class GrassPatch {
     control2X = startX - this.wid * this.points[1][2];
     control2Y = endY + this.h * this.points[1][3];
 
-    stroke(0, 128, 0); // Green color for the grass
-    bezier(
+    p5.stroke(0, 128, 0); // Green color for the grass
+    p5.bezier(
       startX,
       startY,
       control1X,
@@ -114,15 +131,19 @@ class GrassPatch {
       endY
     );
 
-    pop();
+    p5.pop();
   }
 
   update() {
-    this.t += 1;
-
-    if (this.t > 100) {
-      this.t = 0;
-      this.generatePoints();
-    }
+    // this.t = (this.t + 1) % 50;
+    // if (this.t === 0) {
+    //   this.t = 0;
+    this.generatePoints();
+    // }
+    // this.t += 1;
+    // if (this.t > 100) {
+    //   this.t = 0;
+    //   this.generatePoints();
+    // }
   }
 }

@@ -6,6 +6,16 @@ Install [http-server](https://www.npmjs.com/package/http-server)
 
 `cd let-w--new-World`
 
+Make a file src/env.ts with the following content:
+
+```typescript
+export const OPENAI_API_KEY = <your openai api key>;
+```
+
+`npm install`
+
+`npm run build`
+
 `http-server`
 
 Go to [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
