@@ -31,3 +31,7 @@ line 9009
 ): p5.SoundFile;
 
 YOU WILL HAVE TO MANUALLY EDIT THE FILE node_modules/@types/p5/global.d.ts
+
+I HAVE A PR FOR THIS, SEE ITS STATUS HERE
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65202
