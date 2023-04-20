@@ -68,7 +68,7 @@ export function keyPressedWorld(keyCode: number) {
 
   if (w.getPlayer().getInConversation()) {
     if (
-      w.getChatWindow().getCurrentEntityAdditionalDialog().length > 0 &&
+      w.getChatWindow().getCurrentTalkableAdditionalDialog().length > 0 &&
       keyCode === 32
     ) {
       w.updateKeyState('SPACE', maxVal + 1);

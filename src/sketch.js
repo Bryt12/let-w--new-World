@@ -7,6 +7,7 @@ import {
 
 const sketch = (p) => {
   p.setup = () => {
+    p.frameRate(60);
     setupWorld(p);
   };
 

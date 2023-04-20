@@ -1,15 +1,15 @@
 import { Enemy } from './enemy.js';
-import { Entity } from './entity.js';
+import { Talkable } from './talkable.js';
 import { Scenery } from './scenery.js';
 
 export class Room {
   private enemies: Enemy[];
-  private npcs: Entity[];
+  private npcs: Talkable[];
   private scenery: any[];
 
   public hasPlayer: boolean;
 
-  constructor(enemies: Enemy[], npcs: Entity[], scenery: Scenery[]) {
+  constructor(enemies: Enemy[], npcs: Talkable[], scenery: Scenery[]) {
     this.enemies = enemies;
     this.npcs = npcs;
     this.scenery = scenery;

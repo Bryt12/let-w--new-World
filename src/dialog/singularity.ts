@@ -1,4 +1,4 @@
-export const opening = [
+export const singularityOpening = [
   'Welcome to the Singularity.',
   // 'Here beauty is in perfect harmony with complexity.',
   // '...',
@@ -18,4 +18,4 @@ export const opening = [
   // 'There you will find the first of the lost minds.',
 ];
 
-export const passive = ['How may I help you?'];
+export const singularityPassive = ['How may I help you?'];

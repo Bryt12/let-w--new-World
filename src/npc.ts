@@ -1,12 +1,12 @@
 import { w } from './main.js';
 import { interactionDistance } from './constants.js';
-import { Entity } from './entity.js';
+import { Talkable } from './talkable.js';
 
 import { dist } from './util.js';
 
 import P5 from 'p5';
 
-export class NPC extends Entity {
+export class NPC extends Talkable {
   private name: string;
   private color: string;
   private inventory: any[];
@@ -34,9 +34,11 @@ export class NPC extends Entity {
     x: number,
     y: number,
     inventory: any,
-    personality: string
+    personality: string,
+    dialog: string[],
+    passiveDialog: string[]
   ) {
-    super(personality);
+    super(personality, dialog, passiveDialog);
     this.name = name;
     this.color = color;
     this.inventory = inventory;
@@ -70,18 +72,14 @@ export class NPC extends Entity {
     this.distanceFromPlayer = distance;
   }
 
-  nextLine(callback: (text: string) => void, done: () => void) {
-    callback('Hello, World!');
-  }
-
   displayName(p5: P5) {
-    p5.push();
-    p5.fill(0);
-    p5.noStroke();
-    p5.textSize(20);
-    p5.textAlign(p5.CENTER, p5.CENTER);
-    p5.text(this.name, this.x, this.y + this.height - 40);
-    p5.pop();
+    // p5.push();
+    // p5.fill(0);
+    // p5.noStroke();
+    // p5.textSize(20);
+    // p5.textAlign(p5.CENTER, p5.CENTER);
+    // p5.text(this.name, this.x, this.y + this.height - 40);
+    // p5.pop();
   }
 
   bounce() {
@@ -93,13 +91,13 @@ export class NPC extends Entity {
       this.bounceVelocity * (isOutOfBoundsBottom - isOutOfBoundsTop);
   }
 
-  interact() {
-    // this.color = rc();
-    w.getChatWindow().clear();
+  // interact() {
+  //   // this.color = rc();
+  //   w.getChatWindow().clear();
 
-    w.getChatWindow().addEntity(this);
-    w.getChatWindow().addEntity(w.getPlayer());
-  }
+  //   w.getChatWindow().addTalkable(this);
+  //   w.getChatWindow().addTalkable(w.getPlayer());
+  // }
 
   displayInteraction(p5: P5) {
     if (this.distanceFromPlayer < interactionDistance) {

@@ -1,11 +1,11 @@
-import { Entity } from './entity.js';
+import { Talkable } from './talkable.js';
 import { screenWidth, screenHeight } from './main.js';
 import { LLM } from './llm.js';
 
 import P5 from 'p5';
 
 export class ChatWindow {
-  private entities: Entity[];
+  private talkables: Talkable[];
 
   private boundHeight: number;
   private bounceVelocity: number;
@@ -17,13 +17,13 @@ export class ChatWindow {
 
   private text: string;
 
-  private currentEntity: number;
+  private currentTalkable: number;
 
   private llm: LLM = new LLM();
   private llmLoading: boolean = false;
 
   constructor() {
-    this.entities = [];
+    this.talkables = [];
 
     this.boundHeight = 1;
     this.bounceVelocity = 0.1;
@@ -32,7 +32,7 @@ export class ChatWindow {
 
     this.text = '';
 
-    this.currentEntity = 0;
+    this.currentTalkable = 0;
   }
 
   setup(p5: P5) {
@@ -56,7 +56,7 @@ export class ChatWindow {
   }
 
   draw(p5: P5) {
-    if (this.entities.length === 0) {
+    if (this.talkables.length === 0) {
       this.input.hide();
       this.button.hide();
       return;
@@ -82,9 +82,9 @@ export class ChatWindow {
     p5.stroke(0);
     p5.rect(squareX, squareY, squareSize, squareSize);
 
-    if (this.entities.length > 1) {
-      let entity = this.entities[0];
-      entity.draw(p5, squareX + squareSize / 2, squareY + squareSize / 2);
+    if (this.talkables.length > 1) {
+      let talkable = this.talkables[0];
+      talkable.draw(p5, squareX + squareSize / 2, squareY + squareSize / 2);
     }
 
     p5.textAlign(p5.LEFT, p5.CENTER);
@@ -141,7 +141,7 @@ export class ChatWindow {
       // If there are already 3 lines, we want to get the
       // rest of the text and store it in additionalDialog
       if (currentY >= y + lineHeight * 3) {
-        this.entities[this.currentEntity].setAdditionalDialog(
+        this.talkables[this.currentTalkable].setAdditionalDialog(
           words.slice(i).join(' ')
         );
         return;
@@ -150,20 +150,20 @@ export class ChatWindow {
     p5.text(currentLine, x, currentY);
   }
 
-  getCurrentEntityAdditionalDialog() {
-    return this.entities[this.currentEntity].getAdditionalDialog();
+  getCurrentTalkableAdditionalDialog() {
+    return this.talkables[this.currentTalkable].getAdditionalDialog();
   }
 
   update() {
     this.bounce();
 
-    if (this.text === '' && this.entities.length > 0) {
+    if (this.text === '' && this.talkables.length > 0) {
       this.advance();
     }
   }
 
   advance() {
-    // this.entities[this.currentEntity].nextLine(
+    // this.talkables[this.currentTalkable].nextLine(
     //   (text) => {
     //     this.text = text;
     //   },
@@ -173,7 +173,9 @@ export class ChatWindow {
     //   }
     // );
 
-    this.text = this.getCurrentEntityAdditionalDialog();
+    console.log('advancing');
+
+    this.text = this.getCurrentTalkableAdditionalDialog();
   }
 
   async getResponse() {
@@ -181,7 +183,7 @@ export class ChatWindow {
       return;
     }
 
-    const history = this.getCurrentEntityHistory();
+    const history = this.getCurrentTalkableHistory();
 
     // Get value that is in the input box
     let response = this.input.value();
@@ -199,29 +201,29 @@ export class ChatWindow {
     this.text = httpRes.content;
   }
 
-  getCurrentEntityHistory() {
-    return this.entities[this.currentEntity].getHistory();
+  getCurrentTalkableHistory() {
+    return this.talkables[this.currentTalkable].getHistory();
   }
 
   getCurrentPersonality() {
-    return this.entities[this.currentEntity].getPersonality();
+    return this.talkables[this.currentTalkable].getPersonality();
   }
 
   clear() {
-    for (let i = 0; i < this.entities.length; i++) {
-      this.entities[i].clearDialog();
+    for (let i = 0; i < this.talkables.length; i++) {
+      this.talkables[i].clearDialog();
     }
 
-    this.entities = [];
+    this.talkables = [];
     this.text = '';
-    this.currentEntity = 0;
+    this.currentTalkable = 0;
     this.height = 0;
 
     // this.additionalDialog = '';
     // this.history = [];
   }
 
-  addEntity(entity: Entity) {
-    this.entities.push(entity);
+  addTalkable(talkable: Talkable) {
+    this.talkables.push(talkable);
   }
 }

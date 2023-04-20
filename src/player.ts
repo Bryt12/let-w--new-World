@@ -1,9 +1,9 @@
-import { Entity } from './entity.js';
+import { Talkable } from './talkable.js';
 import { w, screenWidth, screenHeight } from './main.js';
 
 import P5 from 'p5';
 
-export class Player extends Entity {
+export class Player extends Talkable {
   private name: string;
   private color: string;
   private inventory: any[];
@@ -209,7 +209,7 @@ export class Player extends Entity {
 
   takeAction() {
     if (!this.inConversation) {
-      let interactions = w.getInteractions();
+      let interactions = w.getInteractions(); // Get npcs in range
 
       if (interactions.length > 0) {
         this.inConversation = true;

@@ -16,8 +16,8 @@ export class LLM {
   async getChatGPTResponse(text: string) {
     const chatWindow = w.getChatWindow();
     const personality = chatWindow.getCurrentPersonality();
-    const history = chatWindow.getCurrentEntityHistory();
-    const prompt = `You are a ${personality}.}`;
+    const history = chatWindow.getCurrentTalkableHistory();
+    const prompt = `You are an NPC in a RPG video that takes place in the singularity, ${personality}.`;
 
     const messages: any = [{ role: 'system', content: prompt }];
     for (const message of history) {

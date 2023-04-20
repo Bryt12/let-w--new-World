@@ -161,7 +161,6 @@ export class World {
     }
 
     this.p.update();
-    this.cw.update();
 
     this.t = (this.t + 1) % 10;
     if (this.t === 0) {
@@ -169,6 +168,8 @@ export class World {
         scenery.update();
       }
     }
+
+    this.cw.update();
   }
 
   clearKeyState() {
@@ -193,10 +194,11 @@ export class World {
     }
 
     this.p.draw(this.p5);
-    this.cw.draw(this.p5);
 
     for (let npc of room.getNPCs()) {
       npc.draw(this.p5);
     }
+
+    this.cw.draw(this.p5);
   }
 }

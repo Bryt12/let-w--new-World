@@ -1,12 +1,12 @@
 import { w } from './main.js';
-import { Entity } from './entity.js';
+import { Talkable } from './talkable.js';
 
 import { interactionDistance } from './constants.js';
 import { dist, random, polygon } from './util.js';
 
 import P5 from 'p5';
 
-export class Singularity extends Entity {
+export class Singularity extends Talkable {
   private x: number;
   private y: number;
 
@@ -18,20 +18,15 @@ export class Singularity extends Entity {
   private distanceFromPlayer: number = 0;
   private inPlayerRange: boolean = false;
 
-  private dialog: string[];
-  private passiveDialog: string[];
-  private currentLine: number = 0;
-
   private t: number = 0;
-  constructor(x: number, y: number, dialog: string[], pas: string[]) {
+  constructor(x: number, y: number, dialog: string[], passiveDialog: string[]) {
     super(
-      'an NPC in a RPG video, you are a super AI that controls the singularity.'
+      'you are a super AI that controls the singularity. Your goal is to tell the player to find the lost wanderer.',
+      dialog,
+      passiveDialog
     );
     this.x = x;
     this.y = y;
-
-    this.dialog = dialog;
-    this.passiveDialog = pas;
 
     this.height = 0;
     this.bounceVelocity = 0.1;
@@ -108,18 +103,6 @@ export class Singularity extends Entity {
     }
   }
 
-  nextLine(callback: (text: string) => void, done: () => void) {
-    let dialog = this.dialog;
-    if (this.currentLine >= dialog.length) {
-      callback(dialog[this.currentLine]);
-      this.currentLine = 0;
-      done();
-    } else {
-      callback(dialog[this.currentLine]);
-      this.currentLine++;
-    }
-  }
-
   displayInteraction(p5: P5) {
     // If the player is in a conversation
     // display the escape key
@@ -152,33 +135,6 @@ export class Singularity extends Entity {
     return this.distanceFromPlayer;
   }
 
-  interact() {
-    // this.color = rc();
-    const cw = w.getChatWindow();
-
-    cw.clear();
-
-    cw.addEntity(this);
-    cw.addEntity(w.getPlayer());
-
-    let text = '';
-    if (this.getHistory().length === 0) {
-      text = this.dialog[0];
-    } else {
-      text = this.passiveDialog[0];
-      this.addHistory({
-        role: 'system',
-        content: 'The users ended the conversation.',
-      });
-    }
-    this.addHistory({
-      role: 'assistant',
-      content: text,
-    });
-
-    cw.setText(text);
-  }
-
   update() {
     this.bounce();
     this.calculateDistanceFromPlayer();
@@ -192,10 +148,6 @@ export class Singularity extends Entity {
       }
       this.inPlayerRange = false;
     }
-  }
-
-  clearDialog() {
-    this.currentLine = 0;
   }
 
   calculateDistanceFromPlayer() {
