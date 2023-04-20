@@ -1,6 +1,7 @@
-node_modules
-dist
+node_modules/
+dist/
 
 src/env.ts
 
 .vscode
+.DS_Store
