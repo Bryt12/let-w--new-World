@@ -3,9 +3,9 @@
 
 
 "@types/p5@^1.6.0":
-  "integrity" "sha512-1DuGI41woYiMjEGh0hvt1NJPMvjiBHQO/4uKvPCy3IYvytCAq/c3S+0zlRrfhzwVNjydwr2hgkfdBTnptd6nSw=="
-  "resolved" "https://registry.npmjs.org/@types/p5/-/p5-1.6.0.tgz"
-  "version" "1.6.0"
+  "integrity" "sha512-cF03IJc9jYjNfNxAuf0qVpFYhbDy1tGy+ChgZJZxnmCbfcqh9A7e0CItwC1Y5qGX02W/s2M7Nlw/SNY9UdZhgA=="
+  "resolved" "https://registry.npmjs.org/@types/p5/-/p5-1.6.1.tgz"
+  "version" "1.6.1"
 
 "asynckit@^0.4.0":
   "integrity" "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="

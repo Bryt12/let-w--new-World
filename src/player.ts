@@ -34,7 +34,7 @@ export class Player extends Talkable {
     y: number,
     inventory: any[]
   ) {
-    super('');
+    super('', [], []);
     this.name = name;
     this.color = color;
     this.inventory = inventory;
