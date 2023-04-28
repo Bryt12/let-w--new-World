@@ -39,6 +39,10 @@ export function drawWorld(p5: P5) {
   drawFPS(p5);
 }
 
+export function nextLevel() {
+  
+}
+
 function drawFPS(p5: P5) {
   p5.push();
   const fr = p5.frameRate();
@@ -58,8 +62,12 @@ function drawBorder(p5: P5) {
   p5.square(1, 1, screenWidth - 1);
 }
 
-export function keyPressedWorld(keyCode: number) {
+export function keyPressedWorld(p5: P5, keyCode: number) {
   let maxVal = w.getMaxValKeyState();
+
+  if (keyCode === 80) {
+    p5.noLoop();
+  }
 
   if (keyCode === 27) {
     w.getPlayer().setInConversation(false);

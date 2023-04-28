@@ -120,11 +120,14 @@ export class ChatWindow {
 
   drawText(p5: P5, text: string, x: number, y: number) {
     let words = text.split(' ');
+    console.log('-----start----');
+    console.log(words);
 
     let currentLine = '';
     let currentY = y;
     let lineHeight = 20;
     let maxWidth = screenWidth - x - 10;
+    p5.textAlign(p5.LEFT, p5.CENTER);
 
     for (let i = 0; i < words.length; i++) {
       let word = words[i];
@@ -137,6 +140,8 @@ export class ChatWindow {
       } else {
         currentLine = nextLine;
       }
+
+      console.log(currentY, y + lineHeight * 3);
 
       // If there are already 3 lines, we want to get the
       // rest of the text and store it in additionalDialog
@@ -197,7 +202,7 @@ export class ChatWindow {
       content: response,
     });
     history.push(httpRes);
-
+    console.log(httpRes);
     this.text = httpRes.content;
   }
 

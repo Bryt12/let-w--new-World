@@ -212,7 +212,10 @@ export class Player extends Talkable {
       let interactions = w.getInteractions(); // Get npcs in range
 
       if (interactions.length > 0) {
-        this.inConversation = true;
+        if (interactions[0] instanceof Talkable) {
+          this.inConversation = true;
+        }
+
         w.clearKeyState();
         interactions[0].interact();
       } else {

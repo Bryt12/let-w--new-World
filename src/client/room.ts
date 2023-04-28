@@ -5,7 +5,7 @@ import { Scenery } from './scenery.js';
 export class Room {
   private enemies: Enemy[];
   private npcs: Talkable[];
-  private scenery: any[];
+  private scenery: Scenery[];
 
   public hasPlayer: boolean;
 
@@ -31,7 +31,7 @@ export class Room {
     return this.npcs;
   }
 
-  getScenery() {
+  getScenery(): Scenery[] {
     if (this.scenery === undefined) {
       return [];
     }

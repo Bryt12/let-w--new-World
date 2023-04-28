@@ -134,6 +134,12 @@ export class GrassPatch extends Scenery {
     p5.pop();
   }
 
+  getInPlayerRange() {
+    return false;
+  }
+
+  interact() {}
+
   update() {
     // this.t = (this.t + 1) % 50;
     // if (this.t === 0) {

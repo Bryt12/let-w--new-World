@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "./dist", // Output directory for compiled JavaScript
-    "sourceMap": true, // Enable source maps for easier debugging
-    "strict": true, // Enable strict type checking
-    "module": "es2020", // Use ECMAScript 2020 module syntax
-    "moduleResolution": "node", // Use Node.js-style module resolution
-    "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules
-    "target": "es6", // Target ECMAScript 6
+    "target": "ES2019",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
     "allowJs": true,
-    "lib": ["dom", "es2017"], // Include DOM and ECMAScript 2017 libraries
-    "types": ["p5/global"] // Include p5.js type definitions
-  },
-  "include": ["src/**/*.ts", "src/sketch.js"], // Include TypeScript source files
-  "exclude": ["node_modules"]
+    "sourceMap": true,
+    "strict": true
+  }
 }

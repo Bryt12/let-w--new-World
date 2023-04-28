@@ -94,7 +94,7 @@ export abstract class Talkable {
       text = this.getPassiveDialog()[0];
       this.addHistory({
         role: 'system',
-        content: 'The users ended the conversation.',
+        content: 'The users pick their conversation back up.',
       });
     }
     this.addHistory({

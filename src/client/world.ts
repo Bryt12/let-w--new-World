@@ -147,6 +147,13 @@ export class World {
         interactions.push(npc);
       }
     }
+
+    for (let scenery of room.getScenery()) {
+      if (scenery.getInPlayerRange()) {
+        interactions.push(scenery);
+      }
+    }
+
     return interactions;
   }
 

@@ -1,6 +1,8 @@
 import { Scenery } from '../scenery.js';
+import { interactionDistance } from '../constants.js';
+import { w, nextLevel } from '../main.js';
 
-import { random } from '../util.js';
+import { random, dist } from '../util.js';
 
 import P5 from 'p5';
 
@@ -18,6 +20,9 @@ export class Portal extends Scenery {
   private boundHeight: number;
   private bounceVelocity: number;
 
+  private distanceFromPlayer: number = 0;
+  private inPlayerRange: boolean = false;
+
   constructor(x: number, y: number, wid: number, hei: number) {
     super();
     this.x = x;
@@ -29,9 +34,9 @@ export class Portal extends Scenery {
     this.boundHeight = 0;
 
     this.height = 0;
-    this.bounceVelocity = 0.2;
+    this.bounceVelocity = 2;
     this.deltaHeight = this.bounceVelocity;
-    this.boundHeight = 5;
+    this.boundHeight = 4;
   }
 
   draw(p5: P5): void {
@@ -39,7 +44,7 @@ export class Portal extends Scenery {
       return;
     }
     p5.push();
-    p5.translate(this.x, this.y);
+    p5.translate(this.x, this.y + this.height);
 
     for (i = 0; i < 10; i++) {
       p5.fill(p5.color(70, 10, 100, 50));
@@ -66,9 +71,54 @@ export class Portal extends Scenery {
       }
     }
     p5.pop();
+
+    this.displayInteraction(p5);
   }
+
+  getInPlayerRange() {
+    return this.inPlayerRange;
+  }
+
+  displayInteraction(p5: P5) {
+    if (this.distanceFromPlayer < interactionDistance) {
+      p5.push();
+      p5.noStroke();
+      p5.fill(0);
+      p5.textSize(12);
+      p5.textAlign(p5.CENTER, p5.CENTER);
+      p5.text('[space]', this.x, this.y + this.wid + this.height + 36);
+      p5.pop();
+    }
+  }
+
   update(): void {
     this.bounce();
+    this.calculateDistanceFromPlayer();
+
+    if (this.distanceFromPlayer < interactionDistance) {
+      // this.active = false;
+    }
+  }
+
+  interact() {
+    if (this.inPlayerRange) {
+      // this.active = false;
+      nextLevel();
+    }
+  }
+
+  calculateDistanceFromPlayer() {
+    const playerLocation = w.getPlayer().getPosition();
+
+    let distance = dist(this.x, this.y, playerLocation.x, playerLocation.y);
+
+    this.distanceFromPlayer = distance;
+
+    if (distance < interactionDistance) {
+      this.inPlayerRange = true;
+    } else {
+      this.inPlayerRange = false;
+    }
   }
 
   bounce() {

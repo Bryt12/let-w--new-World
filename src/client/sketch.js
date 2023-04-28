@@ -16,7 +16,7 @@ const sketch = (p) => {
   };
 
   p.keyPressed = (event) => {
-    keyPressedWorld(event.keyCode);
+    keyPressedWorld(p, event.keyCode);
   };
 
   p.keyReleased = (event) => {
