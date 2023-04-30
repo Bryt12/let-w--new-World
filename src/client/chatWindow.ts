@@ -120,8 +120,6 @@ export class ChatWindow {
 
   drawText(p5: P5, text: string, x: number, y: number) {
     let words = text.split(' ');
-    console.log('-----start----');
-    console.log(words);
 
     let currentLine = '';
     let currentY = y;
@@ -140,8 +138,6 @@ export class ChatWindow {
       } else {
         currentLine = nextLine;
       }
-
-      console.log(currentY, y + lineHeight * 3);
 
       // If there are already 3 lines, we want to get the
       // rest of the text and store it in additionalDialog
@@ -203,7 +199,7 @@ export class ChatWindow {
     });
     history.push(httpRes);
     console.log(httpRes);
-    this.text = httpRes.content;
+    this.text = httpRes;
   }
 
   getCurrentTalkableHistory() {

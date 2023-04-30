@@ -7,6 +7,11 @@ import app from './app.js';
 
 import winston from 'winston';
 import expressWinston from 'express-winston';
+
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 // const port = process.env.PORT || 3000;
 const port = 3000,
   clientDistFolder = path.resolve(__dirname, '..', 'client'), // This is the most painful line of code I've ever conceived, sorry...

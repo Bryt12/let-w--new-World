@@ -1,7 +1,7 @@
 node_modules/
 dist/
 
-src/client/env.ts
+.env
 
 .vscode
 .DS_Store

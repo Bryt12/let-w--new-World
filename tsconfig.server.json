@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/server",
-    "module": "CommonJS"
+    "module": "nodenext"
   },
   "include": ["./src/server/**/*.ts"]
 }
