@@ -3,7 +3,7 @@ import { w } from './main.js';
 export class LLM {
   constructor() {}
 
-  async getChatGPTResponse(text: string) {
+  async getChatGPTResponse(text: string, setTask: Function) {
     const chatWindow = w.getChatWindow();
     const personality = chatWindow.getCurrentPersonality();
     const history = chatWindow.getCurrentTalkableHistory();
@@ -43,9 +43,14 @@ export class LLM {
     console.log(outObj);
     console.log('-------');
     let out = await outObj.json();
-
     console.log(out);
+    console.log(out.sketches[0].script);
 
-    return out.text;
+    setTask(out.sketches[0]);
+
+    return {
+      role: 'assistant',
+      content: out.out.text,
+    };
   }
 }

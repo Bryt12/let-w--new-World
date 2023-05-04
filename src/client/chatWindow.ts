@@ -22,6 +22,8 @@ export class ChatWindow {
   private llm: LLM = new LLM();
   private llmLoading: boolean = false;
 
+  private task: any = {};
+
   constructor() {
     this.talkables = [];
 
@@ -61,6 +63,24 @@ export class ChatWindow {
       this.button.hide();
       return;
     }
+
+    if (this.task.script) {
+      // const sketch = JSON.parse(this.task.script);
+      //const objectString = `(${this.task.script}})`;
+
+      const getObject = new Function(this.task.script);
+      console.log('Draw');
+      // Assuming you have a p variable already defined
+      const myObject = getObject();
+
+      // Now you can use myObject.setup and myObject.draw with p
+
+      p5.push();
+      myObject.draw(p5);
+      p5.pop();
+    }
+    // sketch.draw(p5);
+    // }
 
     this.input.show();
     this.button.show();
@@ -190,7 +210,9 @@ export class ChatWindow {
     let response = this.input.value();
 
     this.llmLoading = true;
-    const httpRes = await this.llm.getChatGPTResponse(response);
+    const httpRes = await this.llm.getChatGPTResponse(response, (task: any) => {
+      this.task = task;
+    });
     this.llmLoading = false;
 
     history.push({
@@ -199,7 +221,7 @@ export class ChatWindow {
     });
     history.push(httpRes);
     console.log(httpRes);
-    this.text = httpRes;
+    this.text = httpRes.content;
   }
 
   getCurrentTalkableHistory() {
