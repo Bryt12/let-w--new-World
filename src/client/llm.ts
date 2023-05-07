@@ -44,7 +44,7 @@ export class LLM {
     console.log('-------');
     let out = await outObj.json();
     console.log(out);
-    console.log(out.sketches[0].script);
+    console.log(out.sketches[0]);
 
     setTask(out.sketches[0]);
 

@@ -64,23 +64,25 @@ export class ChatWindow {
       return;
     }
 
-    if (this.task.script) {
-      // const sketch = JSON.parse(this.task.script);
-      //const objectString = `(${this.task.script}})`;
+    // Draw any active tasks. Eventually the task list will be it's own thing,but for now it's here
+    // as I wanted to see if I could get ChatGPT written code to run.
+    if (this.task && this.task.script) {
+      let code = `return ${this.task.script}`;
 
-      const getObject = new Function(this.task.script);
-      console.log('Draw');
-      // Assuming you have a p variable already defined
-      const myObject = getObject();
+      const backgroundRegex = /p\.background\(\d+\);/g;
+      code = code.replace(backgroundRegex, '');
 
-      // Now you can use myObject.setup and myObject.draw with p
+      try {
+        const getObject = new Function(code);
+        const myObject = getObject();
 
-      p5.push();
-      myObject.draw(p5);
-      p5.pop();
+        p5.push();
+        myObject.draw(p5);
+        p5.pop();
+      } catch (e) {
+        console.log(e);
+      }
     }
-    // sketch.draw(p5);
-    // }
 
     this.input.show();
     this.button.show();

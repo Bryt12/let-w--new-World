@@ -155,21 +155,21 @@ export const drawItem = async (item: string) => {
     const template = `Your task is to write some code to draw the following item surrounded by three backticks: \`\`\`{text}\`\`\`
 To solve this problem you will:
 - First describe the item abstractly
-- Create a 2D p5js script to draw the item as described
+- Create a 2D p5js script to draw the item as described, DO NOT ADD COMMENTS TO THE CODE
 
 Using the following format:
 Description: <abstract representation>
 
 Code:
 \`\`\`javascript
-return {{
+{{
   setup:(p) => {{
     p.createCanvas(400, 400);
-  }};
+  }},
 
   draw: (p) => {{
     ...
-  }};
+  }},
 }};
 \`\`\`
 `;

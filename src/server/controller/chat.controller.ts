@@ -11,6 +11,9 @@ export const npcChat = async (req: any, res: any) => {
   try {
     const { messages } = req.body;
 
+    console.log('-----Messages----');
+    console.log(messages);
+
     const out = await conversation(messages);
     if (!out) {
       return res.status(500);
