@@ -24,6 +24,8 @@ export class World {
 
   private t: number = 0;
 
+  private taskList: any = [];
+
   constructor(p5: P5, sizeX: number, sizeY: number, p: Player) {
     this.p5 = p5;
 
@@ -179,6 +181,14 @@ export class World {
     this.cw.update();
   }
 
+  addTask(task: any) {
+    this.taskList.push(task);
+  }
+
+  getTaskList() {
+    return this.taskList;
+  }
+
   clearKeyState() {
     this.keyState = {
       UP: -1,
@@ -207,5 +217,7 @@ export class World {
     }
 
     this.cw.draw(this.p5);
+
+    console.log(this.taskList);
   }
 }

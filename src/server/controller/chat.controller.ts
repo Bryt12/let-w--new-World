@@ -27,6 +27,8 @@ export const npcChat = async (req: any, res: any) => {
 
     const taskList = tasks.split('\n').filter((t: any) => t !== '- no tasks');
     const sketches = [];
+
+    const tasksOut = [];
     for (var i = 0; i < taskList.length; i++) {
       const t = taskList[i];
       const [location, task, reward] = t.split(':');
@@ -60,13 +62,20 @@ export const npcChat = async (req: any, res: any) => {
           name: itemsList[j].split('- ')[1],
         });
       }
+
+      tasksOut.push({
+        location,
+        task,
+        sketches,
+        reward,
+      });
     }
 
     console.log('-----Task List----');
     console.log(taskList);
 
     return {
-      sketches,
+      tasksOut,
       out,
     };
   } catch (e) {

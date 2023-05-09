@@ -1,5 +1,5 @@
 import { Talkable } from './talkable.js';
-import { screenWidth, screenHeight } from './main.js';
+import { screenWidth, screenHeight, w } from './main.js';
 import { LLM } from './llm.js';
 
 import P5 from 'p5';
@@ -21,8 +21,6 @@ export class ChatWindow {
 
   private llm: LLM = new LLM();
   private llmLoading: boolean = false;
-
-  private task: any = {};
 
   constructor() {
     this.talkables = [];
@@ -66,23 +64,23 @@ export class ChatWindow {
 
     // Draw any active tasks. Eventually the task list will be it's own thing,but for now it's here
     // as I wanted to see if I could get ChatGPT written code to run.
-    if (this.task && this.task.script) {
-      let code = `return ${this.task.script}`;
+    //if (this.task && this.task.script) {
+    //  let code = `return ${this.task.script}`;
 
-      const backgroundRegex = /p\.background\(\d+\);/g;
-      code = code.replace(backgroundRegex, '');
+    //  const backgroundRegex = /p\.background\(\d+\);/g;
+    //  code = code.replace(backgroundRegex, '');
 
-      try {
-        const getObject = new Function(code);
-        const myObject = getObject();
+    //  try {
+    //   const getObject = new Function(code);
+    //    const myObject = getObject();
 
-        p5.push();
-        myObject.draw(p5);
-        p5.pop();
-      } catch (e) {
-        console.log(e);
-      }
-    }
+    //   p5.push();
+    //    myObject.draw(p5);
+    //    p5.pop();
+    //  } catch (e) {
+    //    console.log(e);
+    //  }
+    // }
 
     this.input.show();
     this.button.show();
@@ -213,7 +211,7 @@ export class ChatWindow {
 
     this.llmLoading = true;
     const httpRes = await this.llm.getChatGPTResponse(response, (task: any) => {
-      this.task = task;
+      w.addTask(task);
     });
     this.llmLoading = false;
 
