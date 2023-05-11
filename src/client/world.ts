@@ -2,6 +2,7 @@
 import { Room } from './room.js';
 import { Player } from './player.js';
 import { ChatWindow } from './chatWindow.js';
+import { TaskList } from './taskList.js';
 
 import { interactionDistance } from './constants.js';
 
@@ -23,6 +24,8 @@ export class World {
   private cw: ChatWindow;
 
   private t: number = 0;
+
+  private tl: TaskList;
 
   private taskList: any = [];
 
@@ -49,10 +52,12 @@ export class World {
       LEFT: -1,
       RIGHT: -1,
       SPACE: -1,
+      T: -1,
     };
 
     this.p = p;
     this.cw = new ChatWindow();
+    this.tl = new TaskList();
   }
 
   getPlayer() {
@@ -179,10 +184,11 @@ export class World {
     }
 
     this.cw.update();
+    this.tl.update();
   }
 
   addTask(task: any) {
-    this.taskList.push(task);
+    this.tl.addTask(task);
   }
 
   getTaskList() {
@@ -196,6 +202,7 @@ export class World {
       LEFT: -1,
       RIGHT: -1,
       SPACE: -1,
+      T: -1,
     };
   }
 
@@ -217,7 +224,8 @@ export class World {
     }
 
     this.cw.draw(this.p5);
+    this.tl.draw(this.p5);
 
-    console.log(this.taskList);
+    // console.log(this.taskList);
   }
 }

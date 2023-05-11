@@ -65,8 +65,8 @@ export const npcChat = async (req: any, res: any) => {
 
       tasksOut.push({
         location,
-        task,
-        sketches,
+        message: task,
+        items: sketches,
         reward,
       });
     }

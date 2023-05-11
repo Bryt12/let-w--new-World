@@ -104,7 +104,7 @@ export const extractItems = async (task: string) => {
 
     <location>:<task>:<reward>
 
-    You will extract the items from the task and return them in the format:
+    You will extract ONLY the items that the player must retrieve from the task and return them in the format:
     - <item1>
     - <item2>
 
@@ -154,11 +154,14 @@ export const drawItem = async (item: string) => {
     const name = item.split('- ')[1];
     const template = `Your task is to write some code to draw the following item surrounded by three backticks: \`\`\`{text}\`\`\`
 To solve this problem you will:
-- First describe the item abstractly
+- First describe the item in poetic language
+- Then represent the poetry in geometric language
 - Create a 2D p5js script to draw the item as described, DO NOT ADD COMMENTS TO THE CODE
 
 Using the following format:
-Description: <abstract representation>
+Description: <poetic language>
+
+Geometric: <geometric language>
 
 Code:
 \`\`\`javascript
@@ -216,12 +219,13 @@ Code:
 
       console.log('ExtractedCode');
       console.log(extractedCode);
+
       return extractedCode;
     } else {
       console.log('No code found');
     }
 
-    return out;
+    return '';
   } catch (e) {
     console.log(e);
   }

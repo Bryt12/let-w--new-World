@@ -36,12 +36,10 @@ export function drawWorld(p5: P5) {
   w.update();
   w.draw();
 
-  drawFPS(p5);
+  // drawFPS(p5);
 }
 
-export function nextLevel() {
-  
-}
+export function nextLevel() {}
 
 function drawFPS(p5: P5) {
   p5.push();
@@ -96,6 +94,8 @@ export function keyPressedWorld(p5: P5, keyCode: number) {
     w.updateKeyState('SPACE', maxVal + 1);
   } else if (keyCode === 70) {
     w.flip();
+  } else if (keyCode === 84) {
+    w.updateKeyState('T', maxVal + 1);
   }
 }
 

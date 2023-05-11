@@ -1,6 +1,7 @@
 import { Talkable } from './talkable.js';
 import { screenWidth, screenHeight, w } from './main.js';
 import { LLM } from './llm.js';
+import { Task } from './classes/task.js';
 
 import P5 from 'p5';
 
@@ -21,6 +22,11 @@ export class ChatWindow {
 
   private llm: LLM = new LLM();
   private llmLoading: boolean = false;
+
+  private loadingX: number = 10 + 5;
+  private loadingY: number = screenHeight * (4 / 5) + 5;
+  private loadingXVelocity: number = 1;
+  private loadingYVelocity: number = 1;
 
   constructor() {
     this.talkables = [];
@@ -112,6 +118,23 @@ export class ChatWindow {
     p5.noStroke();
     if (this.llmLoading) {
       p5.text('...', squareX + squareSize + 10, middle);
+
+      p5.circle(this.loadingX, this.loadingY, 10);
+
+      this.loadingX += this.loadingXVelocity;
+      this.loadingY += this.loadingYVelocity;
+
+      if (this.loadingX > screenWidth - 10 - 5) {
+        this.loadingXVelocity = -1;
+      } else if (this.loadingX < 10 + 5) {
+        this.loadingXVelocity = 1;
+      }
+
+      if (this.loadingY > screenHeight - 10 - 5) {
+        this.loadingYVelocity = -1;
+      } else if (this.loadingY < top + 5) {
+        this.loadingYVelocity = 1;
+      }
     } else {
       this.drawText(p5, this.text, squareX + squareSize + 10, middle);
     }
@@ -210,9 +233,17 @@ export class ChatWindow {
     let response = this.input.value();
 
     this.llmLoading = true;
-    const httpRes = await this.llm.getChatGPTResponse(response, (task: any) => {
-      w.addTask(task);
-    });
+    const httpRes = await this.llm.getChatGPTResponse(
+      response,
+      (tasks: Task[]) => {
+        console.log(tasks);
+        for (var i = 0; i < tasks.length; i++) {
+          let task: Task = tasks[i];
+
+          w.addTask(task);
+        }
+      }
+    );
     this.llmLoading = false;
 
     history.push({
